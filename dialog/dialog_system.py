@@ -201,11 +201,11 @@ class Dialog_system:
         if self.state == 3:     # Ask price preference
             if self.name:
                 return format_output(
-                    f"Thanks, {self.name}! Now, thinking about that {self.preferences["food"]} cuisine you’re craving, "
+                    f"Thanks, {self.name}! Now, thinking about that {self.preferences['food']} cuisine you’re craving, "
                     f"what price range would you prefer? You can choose from cheap, moderate, or expensive.\n",
                     self.config.get("caps"))
             else:
-                return format_output(f"Now, thinking about that {self.preferences["food"]} cuisine you’re craving, "
+                return format_output(f"Now, thinking about that {self.preferences['food']} cuisine you’re craving, "
                                      f"what price range would you prefer? You can choose from cheap, moderate, or expensive.\nLet’s find the perfect spot for you!\n",
                                      self.config.get("caps"))
         if self.state == 4:     # Ask area preference
@@ -220,15 +220,15 @@ class Dialog_system:
         if self.state == 5:     # Ask addional requirements
             if self.name:
                 return format_output(
-                    f"Great choices, {self.name}! You’re looking for {self.preferences["food"]} food in the {self.preferences["area"]} "
+                    f"Great choices, {self.name}! You’re looking for {self.preferences['food']} food in the {self.preferences['area']} "
                     f"{'end of town' if self.preferences['area'] in ['north', 'east', 'south', 'west'] else 'of town'} "
-                    f"in a {self.preferences["price"]} price range. "
+                    f"in a {self.preferences['price']} price range. "
                     f"Do you have any additional requirements?\nYou can choose for the restaurant to be touristic,\n"
                     f"romantic, fit for children, or to have assigned seats.\n", self.config.get("caps"))
             else:
-                return format_output(f"Great! You’re looking for {self.preferences["food"]} food in the {self.preferences["area"]} "
+                return format_output(f"Great! You’re looking for {self.preferences['food']} food in the {self.preferences['area']} "
                     f"{'end of town' if self.preferences['area'] in ['north', 'east', 'south', 'west'] else 'of town'} "
-                    f"in a {self.preferences["price"]} price range. "
+                    f"in a {self.preferences['price']} price range. "
                     f"Do you have any additional requirements? You can choose for the restaurant to be touristic, "
                     f"romantic, fit for children, or to have assigned seats.\n", self.config.get("caps"))
         if self.state == 6:

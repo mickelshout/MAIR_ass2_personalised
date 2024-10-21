@@ -5,7 +5,7 @@ from tensorflow import keras
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 from pathlib import Path
-
+import time
 
 # Get the directory of the current script
 script_dir = Path(__file__).parent
@@ -163,7 +163,7 @@ class bag_of_words_encoder:
 model_path = script_dir.parent / 'models' / 'DL_model.h5'
 
 # Get the pretrained model
-classification_model = keras.models.load_model(model_path)
+classification_model = keras.models.load_model(model_path, compile=False)
 
 vectorizer_path = script_dir.parent / 'models' / 'vectorizer.pkl'
 
@@ -260,6 +260,10 @@ def get_recommendations(preferences, additional_preferences):
     return recommended_restaurants, combined_reasoning
 
 
-#Helper function for the all caps feature
+#Helper function for the all caps feature and the dyanmic response times
 def format_output(text, caps):
+    #Dynamic response timer
+    words = text.split(" ")
+    for word in words:
+        time.sleep(0.07)
     return text.upper() if caps else text
