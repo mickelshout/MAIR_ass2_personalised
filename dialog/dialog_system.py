@@ -76,17 +76,10 @@ class Dialog_system:
             return
 
 
-        # In case information is given, update the preferences, but don't return.
-        if self.utterance_type == "inform" or self.utterance_type == "reqalts" or self.utterance_type == "reqmore" \
-                or 'another' in self.utterance or "alternative" in self.utterance:
-            self.preferences_copy = self.preferences.copy()     # Used later to check whether preferences have changed
-            new_preferences = find_preferences(self.utterance, self.config.get("levenshtein_distance"))
-            self.update_preferences(new_preferences)
-            self.state = 5
-
         # Check if the inform was meant to ignore a preference
         phrases = ["don't care", "dont care", "don't mind", "dont mind"]
         if any(phrase in self.utterance for phrase in phrases):
+
             match self.state:
                 case 2:
                     self.ignored_preferences.append("food")
@@ -94,6 +87,14 @@ class Dialog_system:
                     self.ignored_preferences.append("price")
                 case 4:
                     self.ignored_preferences.append("area")
+
+        # In case information is given, update the preferences, but don't return.
+        if self.utterance_type == "inform" or self.utterance_type == "reqalts" or self.utterance_type == "reqmore" \
+                or 'another' in self.utterance or "alternative" in self.utterance:
+            self.preferences_copy = self.preferences.copy()     # Used later to check whether preferences have changed
+            new_preferences = find_preferences(self.utterance, self.config.get("levenshtein_distance"))
+            self.update_preferences(new_preferences)
+            self.state = 5
 
         # Now check if all the 'not ignored' preferences are provided. Else go to state of which the preference is not provided. After this we return.
         for type, info in self.preferences.items():
